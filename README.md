@@ -1,1 +1,1 @@
-1. This app watermark your images.
+1. This app watermarks your images.
