@@ -3,7 +3,6 @@ from os import listdir, mkdir
 from os.path import join
 
 import tkinter as tk
-from tkinter import ttk
 
 
 
@@ -107,38 +106,38 @@ window = tk.Tk()
 window.title('Watermarker')
 window.minsize(width=300, height=200)
 window.config(padx=30, pady=30)
-mainframe = ttk.Frame(window, padding="3 3 12 12")
+mainframe = tk.Frame(window)
 mainframe.grid(column=0, row=0, sticky=('N, W, E, S'))
 window.columnconfigure(0, weight=1)
 window.rowconfigure(0, weight=1)
 
 
-ttk.Label(mainframe, text="Folder name").grid(column=0, row=1, sticky='W')
+tk.Label(mainframe, text="Folder name").grid(column=0, row=1, sticky='W')
 dir_name = tk.StringVar()
-dir_name_entry = ttk.Entry(mainframe, width=15, textvariable=dir_name)
+dir_name_entry = tk.Entry(mainframe, width=15, textvariable=dir_name)
 dir_name_entry.grid(column=1, row=1, sticky=('W, E'))
 
-ttk.Label(mainframe, text="watermark name").grid(column=0, row=2, sticky='W')
+tk.Label(mainframe, text="watermark name").grid(column=0, row=2, sticky='W')
 wm_name = tk.StringVar()
-wm_name_entry = ttk.Entry(mainframe, width=15, textvariable=wm_name)
+wm_name_entry = tk.Entry(mainframe, width=15, textvariable=wm_name)
 wm_name_entry.grid(column=1, row=2, sticky=('W, E'))
 
-ttk.Label(mainframe, text="watermark's width: ").grid(column=0, row=3, sticky='W')
+tk.Label(mainframe, text="watermark's width: ").grid(column=0, row=3, sticky='W')
 wm_width = tk.IntVar()
-wm_width_entry = ttk.Entry(mainframe, width=5, textvariable=wm_width)
+wm_width_entry = tk.Entry(mainframe, width=5, textvariable=wm_width)
 wm_width_entry.grid(column=1, row=3, sticky=('W, E'))
 
-ttk.Label(mainframe, text="watermark's height: ").grid(column=0, row=4, sticky='W')
+tk.Label(mainframe, text="watermark's height: ").grid(column=0, row=4, sticky='W')
 wm_height = tk.IntVar()
-wm_height_entry = ttk.Entry(mainframe, width=5, textvariable=wm_height)
+wm_height_entry = tk.Entry(mainframe, width=5, textvariable=wm_height)
 wm_height_entry.grid(column=1, row=4, sticky=('W, E'))
 
-ttk.Label(mainframe, text="opacity: ").grid(column=0, row=5, sticky='W')
+tk.Label(mainframe, text="opacity: ").grid(column=0, row=5, sticky='W')
 opacity = tk.IntVar()
-opacity_entry = ttk.Entry(mainframe, width=5, textvariable=opacity)
+opacity_entry = tk.Entry(mainframe, width=5, textvariable=opacity)
 opacity_entry.grid(column=1, row=5, sticky=('W, E'))
 
-ttk.Button(text="Do it!", command=mark).grid(column=3, row=6, sticky=('S, E'))
+tk.Button(text="Do it!", command=mark).grid(column=3, row=6, sticky=('S, E'))
 
 
 window.bind("<Return>", mark)
