@@ -12,15 +12,15 @@ class MainApp(tk.Frame):
         self.root.config(padx=30, pady=30)
         self.config(padx=30, pady=30)
         self.root.title("WaterMarker")
-        self.root.geometry('800x600')
+        self.root.geometry('1100x700')
 
         self.photos_frame = PhotosPickerFrame(self)
         self.watermark_frame = WatermarkPickerFrame(self)
         self.preview_frame = PreviewFrame(self)
 
-        self.photos_frame.grid(column=0, row=0, sticky="W")
-        self.watermark_frame.grid(column=0, row=1, sticky="W")
-        self.preview_frame.grid(column=1, row=0, sticky="W")
+        self.photos_frame.grid(column=0, row=0, sticky="NW")
+        self.watermark_frame.grid(column=0, row=1, sticky="NW")
+        self.preview_frame.grid(column=1, row=0, rowspan=2, sticky="NW")
         self.grid(column=0, row=0)
 
 
