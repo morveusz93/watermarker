@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 # create frame where the folder with photos will be selected
-class PhotosPicker(tk.LabelFrame):
+class PhotosPickerFrame(tk.LabelFrame):
     def __init__(self, parent, *args, **kwargs):
         self.root = parent
         frame_label = "Choose a directory or a single photo"
@@ -26,7 +26,7 @@ class PhotosPicker(tk.LabelFrame):
         self.img_path = tk.StringVar()
         self.img_name_entry = tk.Entry(self, width=50, textvariable=self.img_path, state=tk.DISABLED)
         self.img_name_entry.grid(column=1, row=3)
-        self.img_button = tk.Button(self, text='Pick single photo', command=self.select_photo, state=tk.DISABLED)
+        self.img_button = tk.Button(self, text='Pick photo', command=self.select_photo, state=tk.DISABLED)
         self.img_button.grid(column=2, row=3)
 
 

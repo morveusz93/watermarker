@@ -1,7 +1,7 @@
 import tkinter as tk
-from tkinter import filedialog
-from watermark_picker import WatermarkPicker
-from photos_picker import PhotosPicker
+from watermark_picker import WatermarkPickerFrame
+from photos_picker import PhotosPickerFrame
+from preview import PreviewFrame
 
 
 # create main frame, root(parent) is the main window.
@@ -12,13 +12,15 @@ class MainApp(tk.Frame):
         self.root.config(padx=30, pady=30)
         self.config(padx=30, pady=30)
         self.root.title("WaterMarker")
-        self.root.geometry('600x300')
+        self.root.geometry('800x600')
 
-        self.photos_picker = PhotosPicker(self)
-        self.watermark_picker = WatermarkPicker(self)
+        self.photos_frame = PhotosPickerFrame(self)
+        self.watermark_frame = WatermarkPickerFrame(self)
+        self.preview_frame = PreviewFrame(self)
 
-        self.photos_picker.grid(column=0, row=0)
-        self.watermark_picker.grid(column=0, row=1)
+        self.photos_frame.grid(column=0, row=0, sticky="W")
+        self.watermark_frame.grid(column=0, row=1, sticky="W")
+        self.preview_frame.grid(column=1, row=0, sticky="W")
         self.grid(column=0, row=0)
 
 
