@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import StringVar, filedialog, colorchooser
 from tkinter import font
+from tkinter.constants import DISABLED
 
 class WatermarkPickerFrame(tk.LabelFrame):
     def __init__(self, parent, *args, **kwargs):
@@ -14,42 +15,45 @@ class WatermarkPickerFrame(tk.LabelFrame):
         # choose a photo
         self.radio_img = tk.Radiobutton(self, variable=self.text_or_img, value="img", command=self.switch_text_or_img)
         self.radio_img.grid(column=0, row=2)
+        self.photo_label = tk.Label(self, text="Watermark with a PHOTO", state=DISABLED)
+        self.photo_label.grid(column=1, row=2, sticky="W")
         self.img_path = tk.StringVar()
         self.img_name_entry = tk.Entry(self, width=50, textvariable=self.img_path, state=tk.DISABLED)
-        self.img_name_entry.grid(column=1, row=2)
+        self.img_name_entry.grid(column=1, row=3)
         self.img_button = tk.Button(self, text='Pick a photo', command=self.select_photo, state=tk.DISABLED)
-        self.img_button.grid(column=2, row=2)
+        self.img_button.grid(column=2, row=3)
 
 
         # choose a text
+        self.text_label = tk.Label(self, text="Watermark with a TEXT")
+        self.text_label.grid(column=1, row=4, sticky="W")
         self.radio_text = tk.Radiobutton(self, variable=self.text_or_img, value="text", command=self.switch_text_or_img)
-        self.radio_text.grid(column=0, row=3)
+        self.radio_text.grid(column=0, row=4)
         self.text = tk.StringVar()
         self.text_entry = tk.Entry(self, width=50, textvariable=self.text)
-        self.text_entry.grid(column=1, row=3)
-        self.text_label = tk.Label(self, text="TEXT")
-        self.text_label.grid(column=2, row=3)
+        self.text_entry.grid(column=1, row=5)
 
         # FONT SIZE
-        tk.Label(self, text="Font size: ").grid(column=1, row=4, sticky="W")
+        tk.Label(self, text="Font size: ").grid(column=1, row=6, sticky="W")
         self.font_size = tk.IntVar()
         self.font_size.set(12)
         self.font_size_entry = tk.Spinbox(self, textvariable=self.font_size, from_=1, to=100)
-        self.font_size_entry.grid(column=1, row=5, sticky="W")
+        self.font_size_entry.grid(column=1, row=7, sticky="W")
         
         # FONT COLOR
-        tk.Label(self, text="Font color: ").grid(column=1, row=6, sticky="W")
+        tk.Label(self, text="Font color: ").grid(column=1, row=8, sticky="W")
         self.font_color = StringVar(value="#000000")
         self.font_color_entry = tk.Entry(self, width=25, textvariable=self.font_color, state=tk.DISABLED)
-        self.font_color_entry.grid(column=1, row=7, sticky="W")
+        self.font_color_entry.grid(column=1, row=9, sticky="W")
 
         self.font_color_button = tk.Button(self, text="Pick color", command=self.select_color)
-        self.font_color_button.grid(column=1, row=7)
+        self.font_color_button.grid(column=1, row=9)
 
     def switch_text_or_img(self):        
         if self.text_or_img.get() == 'text':
             self.img_name_entry.config(state=tk.DISABLED)
             self.img_button.config(state=tk.DISABLED)
+            self.photo_label.config(state=tk.DISABLED)
             self.text_entry.config(state=tk.NORMAL)
             self.text_label.config(state=tk.NORMAL)
             self.font_size_entry.config(state=tk.NORMAL)
@@ -61,6 +65,7 @@ class WatermarkPickerFrame(tk.LabelFrame):
             self.font_size_entry.config(state=tk.DISABLED)
             self.font_color_entry.config(state=tk.DISABLED)
             self.img_name_entry.config(state=tk.NORMAL)
+            self.photo_label.config(state=tk.NORMAL)
             self.img_button.config(state=tk.NORMAL)
         
 

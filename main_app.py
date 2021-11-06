@@ -14,15 +14,18 @@ class MainApp(tk.Frame):
         self.root.title("WaterMarker")
         self.root.geometry('1100x600')
 
+        # all frames
         self.photos_frame = PhotosPickerFrame(self)
         self.watermark_frame = WatermarkPickerFrame(self)
         self.preview_frame = PreviewFrame(self)
 
+        # set them into main frame
         self.photos_frame.grid(column=0, row=0, sticky="NW")
         self.watermark_frame.grid(column=0, row=1, sticky="NW")
         self.preview_frame.grid(column=1, row=0, rowspan=2, sticky="NW")
         self.grid(column=0, row=0)
 
+        # create confirm button
         self.confirm_button = tk.Button(self.root, text="Confirm", command=lambda: print("good job!"))
         self.confirm_button.grid(column=0, row=1, sticky="SE")
 

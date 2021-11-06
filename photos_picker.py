@@ -1,3 +1,4 @@
+from os import stat
 import tkinter as tk
 from tkinter import filedialog
 
@@ -14,34 +15,42 @@ class PhotosPickerFrame(tk.LabelFrame):
         # choose directory
         self.radio_dir = tk.Radiobutton(self, variable=self.img_or_dir, value="dir", command=self.switch_img_or_dir)
         self.radio_dir.grid(column=0, row=2)
+        self.dir_label = tk.Label(self, text="Choose a directory")
+        self.dir_label.grid(column=1, row=2, sticky="W")
         self.directory = tk.StringVar()
         self.dir_name_entry = tk.Entry(self, width=50, textvariable=self.directory)
-        self.dir_name_entry.grid(column=1, row=2)
+        self.dir_name_entry.grid(column=1, row=3)
         self.dir_button = tk.Button(self, text='Pick folder', command=self.select_dir)
-        self.dir_button.grid(column=2, row=2)
+        self.dir_button.grid(column=2, row=3)
 
         # choose single photo
         self.radio_img = tk.Radiobutton(self, variable=self.img_or_dir, value="img", command=self.switch_img_or_dir)
-        self.radio_img.grid(column=0, row=3)
+        self.radio_img.grid(column=0, row=4)
+        self.img_label = tk.Label(self, text="Choose a single photo", state=tk.DISABLED)
+        self.img_label.grid(column=1, row=4, sticky="W")
         self.img_path = tk.StringVar()
         self.img_name_entry = tk.Entry(self, width=50, textvariable=self.img_path, state=tk.DISABLED)
-        self.img_name_entry.grid(column=1, row=3)
+        self.img_name_entry.grid(column=1, row=5)
         self.img_button = tk.Button(self, text='Pick photo', command=self.select_photo, state=tk.DISABLED)
-        self.img_button.grid(column=2, row=3)
+        self.img_button.grid(column=2, row=5)
 
 
     def switch_img_or_dir(self):        
         if self.img_or_dir.get() == 'img':
             self.dir_name_entry.config(state=tk.DISABLED)
             self.dir_button.config(state=tk.DISABLED)
+            self.dir_label.config(state=tk.DISABLED)
             self.img_name_entry.config(state=tk.NORMAL)
             self.img_button.config(state=tk.NORMAL)
+            self.img_label.config(state=tk.NORMAL)
 
         elif self.img_or_dir.get() == 'dir':
             self.img_name_entry.config(state=tk.DISABLED)
             self.img_button.config(state=tk.DISABLED)
+            self.img_label.config(state=tk.DISABLED)
             self.dir_name_entry.config(state=tk.NORMAL)
             self.dir_button.config(state=tk.NORMAL)
+            self.dir_label.config(state=tk.NORMAL)
         
 
     # open window with selceting direcory, next insert it into entry
