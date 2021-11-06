@@ -12,7 +12,7 @@ class MainApp(tk.Frame):
         self.root.config(padx=30, pady=30)
         self.config(padx=30, pady=30)
         self.root.title("WaterMarker")
-        self.root.geometry('1100x700')
+        self.root.geometry('1100x600')
 
         self.photos_frame = PhotosPickerFrame(self)
         self.watermark_frame = WatermarkPickerFrame(self)
@@ -22,6 +22,9 @@ class MainApp(tk.Frame):
         self.watermark_frame.grid(column=0, row=1, sticky="NW")
         self.preview_frame.grid(column=1, row=0, rowspan=2, sticky="NW")
         self.grid(column=0, row=0)
+
+        self.confirm_button = tk.Button(self.root, text="Confirm", command=lambda: print("good job!"))
+        self.confirm_button.grid(column=0, row=1, sticky="SE")
 
 
 if __name__ == '__main__':

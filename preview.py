@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 
 
+
 class PreviewFrame(tk.LabelFrame):
     def __init__(self, parent, *args, **kwargs):
         self.root = parent
@@ -15,13 +16,27 @@ class PreviewFrame(tk.LabelFrame):
         
     
         # insert IMAGE on screen
-        tk.Label(self, image=self.example_img).grid(column=0, row=0)
+        tk.Label(self, image=self.example_img).grid(column=0, row=0, columnspan=2)
+
+        # position of watermark
+
+        tk.Label(self, text="Position: ", font=20).grid(column=0, row=1)
+        self.positions = ['top-left', 'top-right', 'down-left', 'down-right', 'center']
+        self.position = tk.StringVar(value=self.positions)
+        self.position_entry = tk.Listbox(self, listvariable=self.position, height=5)
+        self.position_entry.grid(column=0, row=2, sticky=("W"))
+
+        # opacity scale
+        tk.Label(self, text="Opacity: ", font=20).grid(column=1, row=1)
+        opacity = tk.IntVar()
+        opacity.set(50)
+        opacity_scale = tk.Scale(self, variable=opacity, from_=1, to=100, length=300, orient=tk.HORIZONTAL)
+        opacity_scale.grid(column=1, row=2, sticky="NE")
 
 
     def resize_image(self, img):
         img_width = img.width
         img_height = img.height
-        print(img.width, img.height)
 
         new_width = 450
         prop = new_width / img_width
