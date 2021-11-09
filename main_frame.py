@@ -5,7 +5,7 @@ from preview import PreviewFrame
 
 
 # create main frame, root(parent) is the main window.
-class MainApp(tk.Frame):
+class MainFrame(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         self.root = parent
@@ -13,6 +13,7 @@ class MainApp(tk.Frame):
         self.config(padx=30, pady=30)
         self.root.title("WaterMarker")
         self.root.geometry('1100x600')
+        self.root.bind("<Return>", say_hello)
 
         # all frames
         self.photos_frame = PhotosPickerFrame(self)
@@ -26,12 +27,9 @@ class MainApp(tk.Frame):
         self.grid(column=0, row=0)
 
         # create confirm button
-        self.confirm_button = tk.Button(self.root, text="Confirm", command=lambda: print("good job!"))
+        self.confirm_button = tk.Button(self.root, text="Confirm", command=say_hello)
         self.confirm_button.grid(column=0, row=1, sticky="SE")
 
 
-if __name__ == '__main__':
-    root = tk.Tk()
-    app = MainApp(parent=root)
-
-    app.mainloop()
+def say_hello(*args):
+    print("Hi!")
