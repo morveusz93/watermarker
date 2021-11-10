@@ -13,7 +13,6 @@ class MainFrame(tk.Frame):
         self.config(padx=30, pady=30)
         self.root.title("WaterMarker")
         self.root.geometry('1100x600')
-        self.root.bind("<Return>", say_hello)
 
         # all frames
         self.photos_frame = PhotosPickerFrame(self)
@@ -27,9 +26,6 @@ class MainFrame(tk.Frame):
         self.grid(column=0, row=0)
 
         # create confirm button
-        self.confirm_button = tk.Button(self.root, text="Confirm", command=say_hello)
+        self.confirm_button = tk.Button(self.root, text="Confirm")
         self.confirm_button.grid(column=0, row=1, sticky="SE")
 
-
-def say_hello(*args):
-    print("Hi!")

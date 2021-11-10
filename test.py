@@ -1,6 +1,5 @@
-import tkinter
 from PIL import Image, ImageFont, ImageDraw
-from os import listdir, mkdir
+from os import listdir, mkdir, path
 from os.path import join
 import tkinter as tk
 from main_frame import MainFrame
@@ -78,18 +77,29 @@ def main():
 
 
 def mark(*args):
+    img_or_dir = app.photos_frame.img_or_dir.get()
+    if img_or_dir == "dir":
+        dir = app.photos_frame.directory
+        saving_dir = join(dir, 'marked')
+        images = [file for file in listdir(dir) if file.endswith(('.jpg', '.jpeg', '.png'))]
 
-    dir = app.photos_frame.directory.get()
-    wm = app.watermark_frame.img_path.get()
-    width = wm_width.get()
-    height = wm_height.get()
-    op = opacity.get()
 
-    images = [file for file in listdir(dir) if file.endswith(('.jpg', '.jpeg', '.png'))]
+    elif img_or_dir == "img":
+        img_path = app.photos_frame.img_path
+        dir = path.dirname(img_path)
+        print(dir)
+        saving_dir = join(dir, 'marked')
+        images = [path.basename(img_path)]
+
+
+    wm = app.watermark_frame.img_path
+    width = 100
+    height = 100
+    op = 200
+
     watermark = Image.open(wm)
     watermark = watermark.resize((width, height))
     watermark.putalpha(op)
-    saving_dir = join(dir, 'marked')
     for img in images:
         photo = Image.open(join(dir, img))
         width, height = watermark.size
@@ -107,7 +117,7 @@ def mark(*args):
 
 root = tk.Tk()
 app = MainFrame(root)
-
+app.confirm_button.config(command=mark)
 
 
 

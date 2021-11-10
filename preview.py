@@ -11,7 +11,7 @@ class PreviewFrame(tk.LabelFrame):
 
 
         # open example img
-        img = self.resize_image(Image.open("images/ekko_0.jpg"))
+        img = self.resize_image(Image.open("images/example.png"))
         self.example_img = ImageTk.PhotoImage(img)
         
     
