@@ -24,14 +24,23 @@ class PreviewFrame(tk.LabelFrame):
         self.positions = ['top-left', 'top-right', 'down-left', 'down-right', 'center']
         self.position = tk.StringVar(value=self.positions)
         self.position_entry = tk.Listbox(self, listvariable=self.position, height=5)
-        self.position_entry.grid(column=0, row=2, sticky=("W"))
+        self.position_entry.grid(column=0, row=2, rowspan=4, sticky=("W"))
+
+
+        # watermaek size scale
+        tk.Label(self, text="Size of watermark: ", font=20).grid(column=1, row=1)
+        width = tk.IntVar()
+        width.set(self.example_img.width() // 2)
+        width_scale = tk.Scale(self, variable=width, from_=1, to=self.example_img.width(), length=300, orient=tk.HORIZONTAL)
+        width_scale.grid(column=1, row=2, sticky="NE")
+
 
         # opacity scale
-        tk.Label(self, text="Opacity: ", font=20).grid(column=1, row=1)
+        tk.Label(self, text="Opacity: ", font=20).grid(column=1, row=3)
         opacity = tk.IntVar()
         opacity.set(50)
         opacity_scale = tk.Scale(self, variable=opacity, from_=1, to=100, length=300, orient=tk.HORIZONTAL)
-        opacity_scale.grid(column=1, row=2, sticky="NE")
+        opacity_scale.grid(column=1, row=4, sticky="NE")
 
 
     def resize_image(self, img):
