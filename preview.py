@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import ImageTk, Image
-
+from resize_img import resize_image
 
 
 class PreviewFrame(tk.LabelFrame):
@@ -11,7 +11,8 @@ class PreviewFrame(tk.LabelFrame):
 
 
         # open example img
-        img = self.resize_image(Image.open("images/example.png"))
+        new_width = 450
+        img = resize_image(Image.open("images/example.png"), new_width)
         self.example_img = ImageTk.PhotoImage(img)
         
     
@@ -29,28 +30,17 @@ class PreviewFrame(tk.LabelFrame):
 
         # watermaek size scale
         tk.Label(self, text="Size of watermark: ", font=20).grid(column=1, row=1)
-        width = tk.IntVar()
-        width.set(self.example_img.width() // 2)
-        width_scale = tk.Scale(self, variable=width, from_=1, to=self.example_img.width(), length=300, orient=tk.HORIZONTAL)
-        width_scale.grid(column=1, row=2, sticky="NE")
+        self.width = tk.IntVar()
+        self.width.set(self.example_img.width() // 2)
+        self.width_scale = tk.Scale(self, variable=self.width, from_=1, to=self.example_img.width(), length=300, orient=tk.HORIZONTAL)
+        self.width_scale.grid(column=1, row=2, sticky="NE")
 
 
         # opacity scale
         tk.Label(self, text="Opacity: ", font=20).grid(column=1, row=3)
-        opacity = tk.IntVar()
-        opacity.set(50)
-        opacity_scale = tk.Scale(self, variable=opacity, from_=1, to=100, length=300, orient=tk.HORIZONTAL)
-        opacity_scale.grid(column=1, row=4, sticky="NE")
+        self.opacity = tk.IntVar()
+        self.opacity.set(50)
+        self.opacity_scale = tk.Scale(self, variable=self.opacity, from_=1, to=100, length=300, orient=tk.HORIZONTAL)
+        self.opacity_scale.grid(column=1, row=4, sticky="NE")
 
-
-    def resize_image(self, img):
-        img_width = img.width
-        img_height = img.height
-
-        new_width = 450
-        prop = new_width / img_width
-
-        new_height = int(img_height * prop)
-
-        return img.resize((new_width, new_height))
     
