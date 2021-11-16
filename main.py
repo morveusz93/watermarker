@@ -59,7 +59,7 @@ class Watermarker:
             except ValueError:
                 photo.paste(cur_wm, wm_pos)
 
-            save_image(photo, self.saving_dir, img)
+            save_image(photo.convert("RGB"), self.saving_dir, img)
 
 
     def marking_with_text(self):
@@ -70,7 +70,7 @@ class Watermarker:
             draw = ImageDraw.Draw(text_img)
             text = self.app.watermark_frame.text.get()
             draw.text(xy=(0, 0), text=text, font=font, fill=(255,255,255, self.wm_op))
-            marked_img = Image.alpha_composite(photo, text_img).convert('RGB')
+            marked_img = Image.alpha_composite(photo, text_img).convert("RGB")
             save_image(marked_img, self.saving_dir, img)
 
 

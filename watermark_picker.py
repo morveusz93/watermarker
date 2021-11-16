@@ -33,12 +33,12 @@ class WatermarkPickerFrame(tk.LabelFrame):
         self.text_entry = tk.Entry(self, width=50, textvariable=self.text)
         self.text_entry.grid(column=1, row=5)
 
-        # FONT SIZE
-        tk.Label(self, text="Font size: ").grid(column=1, row=6, sticky="W")
-        self.font_size = tk.IntVar()
-        self.font_size.set(12)
-        self.font_size_entry = tk.Spinbox(self, textvariable=self.font_size, from_=1, to=100)
-        self.font_size_entry.grid(column=1, row=7, sticky="W")
+        # # FONT SIZE
+        # tk.Label(self, text="Font size: ").grid(column=1, row=6, sticky="W")
+        # self.font_size = tk.IntVar()
+        # self.font_size.set(12)
+        # self.font_size_entry = tk.Spinbox(self, textvariable=self.font_size, from_=1, to=100)
+        # self.font_size_entry.grid(column=1, row=7, sticky="W")
         
         # FONT COLOR
         tk.Label(self, text="Font color: ").grid(column=1, row=8, sticky="W")
@@ -56,14 +56,16 @@ class WatermarkPickerFrame(tk.LabelFrame):
             self.photo_label.config(state=tk.DISABLED)
             self.text_entry.config(state=tk.NORMAL)
             self.text_label.config(state=tk.NORMAL)
-            self.font_size_entry.config(state=tk.NORMAL)
+            # self.font_size_entry.config(state=tk.NORMAL)
             self.font_color_entry.config(state=tk.NORMAL)
+            self.font_color_button.config(state=tk.NORMAL)
 
         elif self.text_or_img.get() == 'img':
             self.text_entry.config(state=tk.DISABLED)
             self.text_label.config(state=tk.DISABLED)
-            self.font_size_entry.config(state=tk.DISABLED)
+            # self.font_size_entry.config(state=tk.DISABLED)
             self.font_color_entry.config(state=tk.DISABLED)
+            self.font_color_button.config(state=tk.DISABLED)
             self.img_name_entry.config(state=tk.NORMAL)
             self.photo_label.config(state=tk.NORMAL)
             self.img_button.config(state=tk.NORMAL)
