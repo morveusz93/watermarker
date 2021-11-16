@@ -62,6 +62,7 @@ class Watermarker:
 
     def marking_with_text(self):
         font_family = 'arial.ttf'
+        font_color = self.app.watermark_frame.font_color.get()[1:-1].split(', ')
         for img in self.images:
             photo = Image.open(join(self.dir, img)).convert('RGBA')
             text_img = Image.new('RGBA', photo.size, (255,255,255,0))
@@ -70,7 +71,7 @@ class Watermarker:
             font = ImageFont.truetype(font_family, font_size)
             draw = ImageDraw.Draw(text_img)
             text = self.app.watermark_frame.text.get()
-            draw.text(xy=(0, 0), text=text, font=font, fill=(255,255,255, self.wm_op))
+            draw.text(xy=(0, 0), text=text, font=font, fill=(int(font_color[0]), int(font_color[1]), int(font_color[2]), self.wm_op))
             marked_img = Image.alpha_composite(photo, text_img).convert("RGB")
             save_image(marked_img, self.saving_dir, img)
 

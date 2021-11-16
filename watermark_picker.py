@@ -42,7 +42,7 @@ class WatermarkPickerFrame(tk.LabelFrame):
         
         # FONT COLOR
         tk.Label(self, text="Font color: ").grid(column=1, row=8, sticky="W")
-        self.font_color = StringVar(value="#000000")
+        self.font_color = StringVar(value="(0, 0, 0)")
         self.font_color_entry = tk.Entry(self, width=25, textvariable=self.font_color, state=tk.DISABLED)
         self.font_color_entry.grid(column=1, row=9, sticky="W")
 
@@ -77,6 +77,6 @@ class WatermarkPickerFrame(tk.LabelFrame):
         self.img_name_entry.insert(0, self.img_path)
 
     def select_color(self):
-        self.font_color.set(colorchooser.askcolor(title="Font color:")[1])
+        self.font_color.set(colorchooser.askcolor(title="Font color:")[0])
         if self.font_color.get() == 'None':
-            self.font_color.set("#000000")
+            self.font_color.set("(0, 0, 0)")
