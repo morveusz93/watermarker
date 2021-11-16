@@ -28,4 +28,3 @@ class MainFrame(tk.Frame):
         # create confirm button
         self.confirm_button = tk.Button(self.root, text="Confirm")
         self.confirm_button.grid(column=0, row=1, sticky="SE")
-

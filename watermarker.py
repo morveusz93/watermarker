@@ -8,7 +8,6 @@ from save_img import save_image
 
 
 
-
 class Watermarker:
     def __init__(self):
         self.root = tk.Tk()
@@ -62,10 +61,13 @@ class Watermarker:
 
 
     def marking_with_text(self):
+        font_family = 'arial.ttf'
         for img in self.images:
             photo = Image.open(join(self.dir, img)).convert('RGBA')
             text_img = Image.new('RGBA', photo.size, (255,255,255,0))
-            font = ImageFont.truetype("arial.ttf", 40)
+            # set font size
+            font_size = int(self.app.preview_frame.width_prop.get() / 100 * photo.height)
+            font = ImageFont.truetype(font_family, font_size)
             draw = ImageDraw.Draw(text_img)
             text = self.app.watermark_frame.text.get()
             draw.text(xy=(0, 0), text=text, font=font, fill=(255,255,255, self.wm_op))
@@ -79,6 +81,7 @@ class Watermarker:
         self.wm_path = self.app.watermark_frame.img_path
         self.wm_op = self.app.preview_frame.opacity.get()
         wm_or_text = self.app.watermark_frame.text_or_img.get()
+
         if wm_or_text == 'img':
             self.watermark = Image.open(self.wm_path)
             self.set_wm_opacity()

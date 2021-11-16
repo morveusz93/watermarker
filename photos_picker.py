@@ -62,4 +62,3 @@ class PhotosPickerFrame(tk.LabelFrame):
     def select_photo(self):
         self.img_path = filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("image files","*.jpg *.jpeg *.png"),("all files","*.*")))
         self.img_name_entry.insert(0, self.img_path)
-
