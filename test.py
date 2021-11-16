@@ -26,12 +26,12 @@ class Watermarker:
         self.root = tk.Tk()
         self.app = MainFrame(self.root)
 
-        # bind ENTER key 
         self.app.confirm_button.config(command=self.main)
 
 
-
         self.app.mainloop()
+
+
 
     def set_paths(self):
         img_or_dir = self.app.photos_frame.img_or_dir.get()
@@ -48,9 +48,11 @@ class Watermarker:
 
 
     # size of watermark
-    def resize_watermark(self):
-        self.wm_width = self.app.preview_frame.width.get()
-        self.watermark = resize_image(self.watermark, self.wm_width)
+    def resize_watermark(self, image_width):
+        wm_width_prop = self.app.preview_frame.width_prop.get()
+        current_wm_width = int(image_width * wm_width_prop / 100)
+        current_watermark = resize_image(self.watermark, current_wm_width)
+        return current_watermark
 
 
     def set_wm_opacity(self):
@@ -58,25 +60,29 @@ class Watermarker:
         self.watermark.putalpha(self.wm_op)
 
 
-    def main(self, *args):
-        self.set_paths()
-
-        self.wm_path = self.app.watermark_frame.img_path
-        self.watermark = Image.open(self.wm_path)
-        self.resize_watermark()
-        self.set_wm_opacity()
-
-
+    def marking_with_photo(self):
         for img in self.images:
             photo = Image.open(join(self.dir, img))
-            width, height = self.watermark.size
             image_width, image_height = photo.size
-            wm_pos = (image_width - width, image_height - height)
+            cur_wm = self.resize_watermark(image_width)
+            wm_width, wm_height = cur_wm.size
+            wm_pos = (image_width - wm_width, image_height - wm_height)
             try:
-                photo.paste(self.watermark, wm_pos, self.watermark)
+                photo.paste(cur_wm, wm_pos, cur_wm)
             except ValueError:
-                photo.paste(self.watermark, wm_pos)
+                photo.paste(cur_wm, wm_pos)
+
             save_image(photo, self.saving_dir, img)
+
+
+
+    def main(self, *args):
+        self.set_paths()
+        self.wm_path = self.app.watermark_frame.img_path
+        self.watermark = Image.open(self.wm_path)
+        self.set_wm_opacity()
+        self.marking_with_photo()
+
 
 
 

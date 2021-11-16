@@ -28,11 +28,12 @@ class PreviewFrame(tk.LabelFrame):
         self.position_entry.grid(column=0, row=2, rowspan=4, sticky=("W"))
 
 
+        # width_prop is percent of watermark width to full image width
         # watermaek size scale
-        tk.Label(self, text="Size of watermark: ", font=20).grid(column=1, row=1)
-        self.width = tk.IntVar()
-        self.width.set(self.example_img.width() // 2)
-        self.width_scale = tk.Scale(self, variable=self.width, from_=1, to=self.example_img.width(), length=300, orient=tk.HORIZONTAL)
+        tk.Label(self, text="Size of watermark (percent): ", font=20).grid(column=1, row=1)
+        self.width_prop = tk.IntVar()
+        self.width_prop.set(25)
+        self.width_scale = tk.Scale(self, variable=self.width_prop, from_=1, to=100, length=300, orient=tk.HORIZONTAL)
         self.width_scale.grid(column=1, row=2, sticky="NE")
 
 
