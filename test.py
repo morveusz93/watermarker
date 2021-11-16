@@ -8,18 +8,6 @@ from save_img import save_image
 
 
 
-# def marking_with_text(dir_name, images, text, saving_dir):
-#     opacity = int(input("opacity: "))
-#     for img in images:
-#         photo = Image.open(join(dir_name, img)).convert('RGBA')
-#         text_img = Image.new('RGBA', photo.size, (255,255,255,0))
-#         font = ImageFont.truetype("arial.ttf", 40)
-#         draw = ImageDraw.Draw(text_img)
-#         draw.text(xy=(0, 0), text=text, font=font, fill=(255,255,255,opacity))
-#         marked_img = Image.alpha_composite(photo, text_img).convert('RGB')
-#         save_image(marked_img, saving_dir, img)
-
-
 
 class Watermarker:
     def __init__(self):
@@ -56,13 +44,12 @@ class Watermarker:
 
 
     def set_wm_opacity(self):
-        self.wm_op = self.app.preview_frame.opacity.get()
         self.watermark.putalpha(self.wm_op)
 
 
     def marking_with_photo(self):
         for img in self.images:
-            photo = Image.open(join(self.dir, img))
+            photo = Image.open(join(self.dir, img)).convert('RGBA')
             image_width, image_height = photo.size
             cur_wm = self.resize_watermark(image_width)
             wm_width, wm_height = cur_wm.size
@@ -75,13 +62,30 @@ class Watermarker:
             save_image(photo, self.saving_dir, img)
 
 
+    def marking_with_text(self):
+        for img in self.images:
+            photo = Image.open(join(self.dir, img)).convert('RGBA')
+            text_img = Image.new('RGBA', photo.size, (255,255,255,0))
+            font = ImageFont.truetype("arial.ttf", 40)
+            draw = ImageDraw.Draw(text_img)
+            text = self.app.watermark_frame.text.get()
+            draw.text(xy=(0, 0), text=text, font=font, fill=(255,255,255, self.wm_op))
+            marked_img = Image.alpha_composite(photo, text_img).convert('RGB')
+            save_image(marked_img, self.saving_dir, img)
+
+
 
     def main(self, *args):
         self.set_paths()
         self.wm_path = self.app.watermark_frame.img_path
-        self.watermark = Image.open(self.wm_path)
-        self.set_wm_opacity()
-        self.marking_with_photo()
+        self.wm_op = self.app.preview_frame.opacity.get()
+        wm_or_text = self.app.watermark_frame.text_or_img.get()
+        if wm_or_text == 'img':
+            self.watermark = Image.open(self.wm_path)
+            self.set_wm_opacity()
+            self.marking_with_photo()
+        elif wm_or_text == 'text':
+            self.marking_with_text()
 
 
 
