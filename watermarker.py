@@ -48,16 +48,31 @@ class Watermarker:
     def marking_with_photo(self):
         for img in self.images:
             photo = Image.open(join(self.dir, img)).convert('RGBA')
-            image_width, image_height = photo.size
-            cur_wm = self.resize_watermark(image_width)
-            wm_width, wm_height = cur_wm.size
-            wm_pos = (image_width - wm_width, image_height - wm_height)
+            current_wm = self.resize_watermark(photo.width)
+            wm_pos = self.get_position_of_wm(img=photo, wm=current_wm)
             try:
-                photo.paste(cur_wm, wm_pos, cur_wm)
+                photo.paste(current_wm, wm_pos, current_wm)
             except ValueError:
-                photo.paste(cur_wm, wm_pos)
+                photo.paste(current_wm, wm_pos)
 
             save_image(photo.convert("RGB"), self.saving_dir, img)
+
+
+    def get_position_of_wm(self, img, wm):
+        img_width, img_height = img.size
+        wm_width, wm_height = wm.size
+        if self.wm_position == 'down-right':
+            wm_pos = (img_width - wm_width, img_height - wm_height)
+        elif self.wm_position == 'down-left':
+            wm_pos = (0, img_height - wm_height)
+        elif self.wm_position == 'top-left':
+            wm_pos = (0, 0)
+        elif self.wm_position == 'top-right':
+            wm_pos = (img_width - wm_width, 0)
+        elif self.wm_position == 'center':
+            wm_pos = (img_width // 2 - wm_width // 2, img_height // 2 - wm_height // 2)
+        return wm_pos
+
 
 
     def marking_with_text(self):
@@ -71,7 +86,8 @@ class Watermarker:
             font = ImageFont.truetype(font_family, font_size)
             draw = ImageDraw.Draw(text_img)
             text = self.app.watermark_frame.text.get()
-            draw.text(xy=(0, 0), text=text, font=font, fill=(int(font_color[0]), int(font_color[1]), int(font_color[2]), self.wm_op))
+            wm_pos = self.get_position_of_wm(img=photo, wm=draw)
+            draw.text(xy=(0,0), text=text, font=font, fill=(int(font_color[0]), int(font_color[1]), int(font_color[2]), self.wm_op))
             marked_img = Image.alpha_composite(photo, text_img).convert("RGB")
             save_image(marked_img, self.saving_dir, img)
 
@@ -82,6 +98,8 @@ class Watermarker:
         self.wm_path = self.app.watermark_frame.img_path
         self.wm_op = self.app.preview_frame.opacity.get()
         wm_or_text = self.app.watermark_frame.text_or_img.get()
+        self.wm_position = self.app.preview_frame.position_entry.selection_get()
+        
 
         if wm_or_text == 'img':
             self.watermark = Image.open(self.wm_path)

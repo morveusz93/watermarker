@@ -20,11 +20,11 @@ class PreviewFrame(tk.LabelFrame):
         tk.Label(self, image=self.example_img).grid(column=0, row=0, columnspan=2)
 
         # position of watermark
-
         tk.Label(self, text="Position: ", font=20).grid(column=0, row=1)
         self.positions = ['top-left', 'top-right', 'down-left', 'down-right', 'center']
         self.position = tk.StringVar(value=self.positions)
         self.position_entry = tk.Listbox(self, listvariable=self.position, height=5)
+        self.position_entry.selection_set(first=3)
         self.position_entry.grid(column=0, row=2, rowspan=4, sticky=("W"))
 
 
