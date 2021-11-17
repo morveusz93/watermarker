@@ -1,7 +1,7 @@
 import tkinter as tk
-from watermark_picker import WatermarkPickerFrame
-from photos_picker import PhotosPickerFrame
-from preview import PreviewFrame
+from .watermark_picker import WatermarkPickerFrame
+from .photos_picker import PhotosPickerFrame
+from .preview import PreviewFrame
 
 
 # create main frame, root(parent) is the main window.

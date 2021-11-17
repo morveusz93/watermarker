@@ -82,7 +82,7 @@ class Watermarker:
 
 
     def marking_with_text(self):
-        font_family = 'arial.ttf'
+        font_family = self.app.watermark_frame.fonts_listbox.get(tk.ANCHOR)
         font_color = self.app.watermark_frame.font_color.get()[1:-1].split(', ')
         for img in self.images:
             photo = Image.open(join(self.dir, img)).convert('RGBA')
@@ -104,7 +104,7 @@ class Watermarker:
         self.wm_path = self.app.watermark_frame.img_path
         self.wm_op = self.app.preview_frame.opacity.get()
         wm_or_text = self.app.watermark_frame.text_or_img.get()
-        self.wm_position = self.app.preview_frame.position_entry.selection_get()
+        self.wm_position = self.app.preview_frame.position_entry.get(tk.ANCHOR)
         
 
         if wm_or_text == 'img':

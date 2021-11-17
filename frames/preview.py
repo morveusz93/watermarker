@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import ImageTk, Image
-from utilities import resize_image
+from .utilities import resize_image
 
 
 class PreviewFrame(tk.LabelFrame):
@@ -23,7 +23,7 @@ class PreviewFrame(tk.LabelFrame):
         tk.Label(self, text="Position: ", font=20).grid(column=0, row=1)
         self.positions = ['top-left', 'top-right', 'down-left', 'down-right', 'center']
         self.position = tk.StringVar(value=self.positions)
-        self.position_entry = tk.Listbox(self, listvariable=self.position, height=5)
+        self.position_entry = tk.Listbox(self, listvariable=self.position, height=5, exportselection=False)
         self.position_entry.selection_set(first=3)
         self.position_entry.grid(column=0, row=2, rowspan=4, sticky=("W"))
 
@@ -40,8 +40,8 @@ class PreviewFrame(tk.LabelFrame):
         # opacity scale
         tk.Label(self, text="Opacity: ", font=20).grid(column=1, row=3)
         self.opacity = tk.IntVar()
-        self.opacity.set(50)
-        self.opacity_scale = tk.Scale(self, variable=self.opacity, from_=1, to=100, length=300, orient=tk.HORIZONTAL)
+        self.opacity.set(125)
+        self.opacity_scale = tk.Scale(self, variable=self.opacity, from_=1, to=255, length=300, orient=tk.HORIZONTAL)
         self.opacity_scale.grid(column=1, row=4, sticky="NE")
 
     

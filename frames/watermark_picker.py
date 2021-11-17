@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import StringVar, filedialog, colorchooser
+from os import listdir
 
 
 
@@ -33,13 +34,20 @@ class WatermarkPickerFrame(tk.LabelFrame):
         self.text_entry = tk.Entry(self, width=50, textvariable=self.text)
         self.text_entry.grid(column=1, row=5)
 
-        # # FONT SIZE
-        # tk.Label(self, text="Font size: ").grid(column=1, row=6, sticky="W")
-        # self.font_size = tk.IntVar()
-        # self.font_size.set(12)
-        # self.font_size_entry = tk.Spinbox(self, textvariable=self.font_size, from_=1, to=100)
-        # self.font_size_entry.grid(column=1, row=7, sticky="W")
-        
+        # choose a font
+        self.fonts_listbox = tk.Listbox(self, width=45, exportselection=False)
+        self.fonts_listbox.grid(column=1, row=6, pady=10, sticky="W")
+        self.scrollbar = tk.Scrollbar(self)
+        self.scrollbar.grid(column=1, row=6, sticky="E", ipady=50)
+        all_fonts = [font for font in listdir(r'C:\Windows\fonts') if font.endswith(".ttf")]
+        for font in all_fonts:
+            self.fonts_listbox.insert(tk.END, font)
+        self.fonts_listbox.config(yscrollcommand = self.scrollbar.set)
+        self.fonts_listbox.selection_set(first=0)
+
+        self.scrollbar.config(command = self.fonts_listbox.yview)
+
+
         # FONT COLOR
         tk.Label(self, text="Font color: ").grid(column=1, row=8, sticky="W")
         self.font_color = StringVar(value="(0, 0, 0)")
