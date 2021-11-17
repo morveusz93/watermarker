@@ -60,7 +60,14 @@ class Watermarker:
 
     def get_position_of_wm(self, img, wm):
         img_width, img_height = img.size
-        wm_width, wm_height = wm.size
+
+        # check if user want to use Image or Text as watermark
+        if type(wm) == Image.Image:
+            wm_width, wm_height = wm.size
+        elif type(wm) == ImageDraw.ImageDraw:
+            wm_width, wm_height = wm.textsize(self.text, self.font)
+
+        # check a position of watermark and calculate pixels where start to drawing
         if self.wm_position == 'down-right':
             wm_pos = (img_width - wm_width, img_height - wm_height)
         elif self.wm_position == 'down-left':
@@ -83,11 +90,11 @@ class Watermarker:
             text_img = Image.new('RGBA', photo.size, (255,255,255,0))
             # set font size
             font_size = int(self.app.preview_frame.width_prop.get() / 100 * photo.height)
-            font = ImageFont.truetype(font_family, font_size)
+            self.font = ImageFont.truetype(font_family, font_size)
             draw = ImageDraw.Draw(text_img)
-            text = self.app.watermark_frame.text.get()
+            self.text = self.app.watermark_frame.text.get()
             wm_pos = self.get_position_of_wm(img=photo, wm=draw)
-            draw.text(xy=(0,0), text=text, font=font, fill=(int(font_color[0]), int(font_color[1]), int(font_color[2]), self.wm_op))
+            draw.text(xy=wm_pos, text=self.text, font=self.font, fill=(int(font_color[0]), int(font_color[1]), int(font_color[2]), self.wm_op))
             marked_img = Image.alpha_composite(photo, text_img).convert("RGB")
             save_image(marked_img, self.saving_dir, img)
 
