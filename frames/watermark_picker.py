@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import StringVar, filedialog, colorchooser
-from tkinter import font
-from tkinter.constants import DISABLED
+
+
 
 class WatermarkPickerFrame(tk.LabelFrame):
     def __init__(self, parent, *args, **kwargs):
@@ -15,7 +15,7 @@ class WatermarkPickerFrame(tk.LabelFrame):
         # choose a photo
         self.radio_img = tk.Radiobutton(self, variable=self.text_or_img, value="img", command=self.switch_text_or_img)
         self.radio_img.grid(column=0, row=2)
-        self.photo_label = tk.Label(self, text="Watermark with a PHOTO", state=DISABLED)
+        self.photo_label = tk.Label(self, text="Watermark with a PHOTO", state=tk.DISABLED)
         self.photo_label.grid(column=1, row=2, sticky="W")
         self.img_path = tk.StringVar()
         self.img_name_entry = tk.Entry(self, width=50, textvariable=self.img_path, state=tk.DISABLED)

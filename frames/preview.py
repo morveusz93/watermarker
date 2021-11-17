@@ -1,6 +1,6 @@
 import tkinter as tk
 from PIL import ImageTk, Image
-from resize_img import resize_image
+from utilities import resize_image
 
 
 class PreviewFrame(tk.LabelFrame):

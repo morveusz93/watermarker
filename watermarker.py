@@ -2,9 +2,8 @@ from PIL import Image, ImageFont, ImageDraw
 from os import listdir, path
 from os.path import join
 import tkinter as tk
-from main_frame import MainFrame
-from resize_img import resize_image
-from save_img import save_image
+from frames.main_frame import MainFrame
+from frames.utilities import resize_image, save_image
 
 
 
