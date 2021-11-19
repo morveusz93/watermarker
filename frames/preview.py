@@ -1,6 +1,8 @@
+from os import path
 import tkinter as tk
 from PIL import ImageTk, Image
 from .utilities import resize_image
+from os.path import join
 
 
 class PreviewFrame(tk.LabelFrame):
@@ -9,15 +11,12 @@ class PreviewFrame(tk.LabelFrame):
         frame_label = "Preview"
         tk.LabelFrame.__init__(self, master=self.root, text=frame_label, padx=20, pady=20, *args, **kwargs)
 
+        # image
+        self.preview_label = tk.Label(self)
+        self.preview_label.grid(column=0, row=0, columnspan=2)
+        self.open_perview_img(image_path=join("images", 'example.png'))
 
-        # open example img
-        new_width = 450
-        img = resize_image(Image.open("images/example.png"), new_width)
-        self.example_img = ImageTk.PhotoImage(img)
-        
-    
-        # insert IMAGE on screen
-        tk.Label(self, image=self.example_img).grid(column=0, row=0, columnspan=2)
+
 
         # position of watermark
         tk.Label(self, text="Position: ", font=20).grid(column=0, row=1)
@@ -45,3 +44,9 @@ class PreviewFrame(tk.LabelFrame):
         self.opacity_scale.grid(column=1, row=4, sticky="NE")
 
     
+    def open_perview_img(self, image_path):
+        # open example img
+        new_width = 450
+        img = resize_image(Image.open(image_path), new_width)
+        self.preview_img = ImageTk.PhotoImage(img)
+        self.preview_label.configure(image=self.preview_img)

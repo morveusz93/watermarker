@@ -13,8 +13,18 @@ class Watermarker:
         self.app = MainFrame(self.root)
         
         self.app.confirm_button.config(command=self.main)
+        self.app.photos_frame.dir_name_entry.config(validate="key", validatecommand=self.load_photos)
+        self.app.photos_frame.img_name_entry.config(validate="key", validatecommand=self.load_photos)
 
         self.app.mainloop()
+
+
+
+    def load_photos(self):
+        self.set_paths()
+        first_image = join(self.dir, self.images[0])
+        self.app.preview_frame.open_perview_img(image_path=first_image)
+        return True
 
 
 
@@ -28,7 +38,7 @@ class Watermarker:
         elif img_or_dir == "img":
             img_path = self.app.photos_frame.img_path
             self.dir = path.dirname(img_path)
-            self.saving_dir = join(dir, 'marked')
+            self.saving_dir = join(self.dir, 'marked')
             self.images = [path.basename(img_path)]
 
 
@@ -100,7 +110,6 @@ class Watermarker:
 
 
     def main(self, *args):
-        self.set_paths()
         self.wm_path = self.app.watermark_frame.img_path
         self.wm_op = self.app.preview_frame.opacity.get()
         wm_or_text = self.app.watermark_frame.text_or_img.get()

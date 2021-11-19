@@ -51,6 +51,7 @@ class PhotosPickerFrame(tk.LabelFrame):
             self.dir_button.config(state=tk.NORMAL)
             self.dir_label.config(state=tk.NORMAL)
         
+        
 
     # open window with selceting direcory, next insert it into entry
     def select_dir(self):
