@@ -44,7 +44,6 @@ class WatermarkPickerFrame(tk.LabelFrame):
             self.fonts_listbox.insert(tk.END, font)
         self.fonts_listbox.config(yscrollcommand = self.scrollbar.set)
         self.fonts_listbox.selection_set(first=0)
-
         self.scrollbar.config(command = self.fonts_listbox.yview)
 
 
