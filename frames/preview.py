@@ -12,9 +12,10 @@ class PreviewFrame(tk.LabelFrame):
         tk.LabelFrame.__init__(self, master=self.root, text=frame_label, padx=20, pady=20, *args, **kwargs)
 
         # image
-        self.preview_label = tk.Label(self)
-        self.preview_label.grid(column=0, row=0, columnspan=2)
-        self.open_perview_img(image_path=join("images", 'example.png'))
+        self.preview_canvas = tk.Canvas(self, width=450)
+        self.preview_canvas.grid(column=0, row=0, columnspan=2)
+        self.preview_img_path = join("images", 'example.png')
+        self.open_perview_img()
 
 
 
@@ -44,9 +45,9 @@ class PreviewFrame(tk.LabelFrame):
         self.opacity_scale.grid(column=1, row=4, sticky="NE")
 
     
-    def open_perview_img(self, image_path):
+    def open_perview_img(self):
         # open example img
         new_width = 450
-        img = resize_image(Image.open(image_path), new_width)
+        img = resize_image(Image.open(self.preview_img_path), new_width)
         self.preview_img = ImageTk.PhotoImage(img)
-        self.preview_label.configure(image=self.preview_img)
+        self.preview_canvas.create_image(0,0, anchor="nw", image=self.preview_img)

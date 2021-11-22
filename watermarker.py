@@ -22,8 +22,8 @@ class Watermarker:
 
     def load_photos(self):
         self.set_paths()
-        first_image = join(self.dir, self.images[0])
-        self.app.preview_frame.open_perview_img(image_path=first_image)
+        self.app.preview_frame.preview_img_path = join(self.dir, self.images[0])
+        self.app.preview_frame.open_perview_img()
         return True
 
 
