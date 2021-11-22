@@ -35,15 +35,14 @@ class WatermarkPickerFrame(tk.LabelFrame):
         self.text_entry.grid(column=1, row=5)
 
         # choose a font
-        self.fonts_listbox = tk.Listbox(self, width=45, exportselection=False)
+        all_fonts = [font for font in listdir(r'C:\Windows\fonts') if font.endswith(".ttf")]
+        self.fonts = tk.StringVar(value=all_fonts)
+        self.fonts_listbox = tk.Listbox(self, width=45, listvariable=self.fonts, exportselection=False)
+        self.fonts_listbox.selection_set(first=0)
         self.fonts_listbox.grid(column=1, row=6, pady=10, sticky="W")
         self.scrollbar = tk.Scrollbar(self)
         self.scrollbar.grid(column=1, row=6, sticky="E", ipady=50)
-        all_fonts = [font for font in listdir(r'C:\Windows\fonts') if font.endswith(".ttf")]
-        for font in all_fonts:
-            self.fonts_listbox.insert(tk.END, font)
         self.fonts_listbox.config(yscrollcommand = self.scrollbar.set)
-        self.fonts_listbox.selection_set(first=0)
         self.scrollbar.config(command = self.fonts_listbox.yview)
 
 
