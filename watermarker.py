@@ -16,8 +16,20 @@ class Watermarker:
         self.app.photos_frame.dir_name_entry.config(validate="key", validatecommand=self.load_photos)
         self.app.photos_frame.img_name_entry.config(validate="key", validatecommand=self.load_photos)
 
+        self.app.watermark_frame.img_name_entry.config(validate="key", validatecommand=self.load_watermark)
+        self.app.watermark_frame.text_entry.config(validate="key", validatecommand=self.load_watermark)
+        self.app.watermark_frame.font_color_entry.config(validate="key", validatecommand=self.load_watermark)
+        self.app.watermark_frame.fonts_listbox.bind("<<ListboxSelect>>", self.load_watermark)
+        self.app.preview_frame.position_entry.bind("<<ListboxSelect>>", self.load_watermark)
+        self.app.preview_frame.opacity_scale.config(command=self.load_watermark)
+        self.app.preview_frame.width_scale.config(command=self.load_watermark)
+        
         self.app.mainloop()
 
+
+    def load_watermark(self, *args):
+        print("nice")
+        return True
 
 
     def load_photos(self):
@@ -48,10 +60,6 @@ class Watermarker:
         current_wm_width = int(image_width * wm_width_prop / 100)
         current_watermark = resize_image(self.watermark, current_wm_width)
         return current_watermark
-
-
-    def set_wm_opacity(self):
-        self.watermark.putalpha(self.wm_op)
 
 
     def marking_with_photo(self):
@@ -118,7 +126,7 @@ class Watermarker:
 
         if wm_or_text == 'img':
             self.watermark = Image.open(self.wm_path)
-            self.set_wm_opacity()
+            self.watermark.putalpha(self.wm_op)
             self.marking_with_photo()
         elif wm_or_text == 'text':
             self.marking_with_text()

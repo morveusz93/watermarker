@@ -45,7 +45,6 @@ class WatermarkPickerFrame(tk.LabelFrame):
         self.fonts_listbox.config(yscrollcommand = self.scrollbar.set)
         self.scrollbar.config(command = self.fonts_listbox.yview)
 
-
         # FONT COLOR
         tk.Label(self, text="Font color: ").grid(column=1, row=8, sticky="W")
         self.font_color = StringVar(value="(0, 0, 0)")
@@ -62,14 +61,12 @@ class WatermarkPickerFrame(tk.LabelFrame):
             self.photo_label.config(state=tk.DISABLED)
             self.text_entry.config(state=tk.NORMAL)
             self.text_label.config(state=tk.NORMAL)
-            # self.font_size_entry.config(state=tk.NORMAL)
             self.font_color_entry.config(state=tk.NORMAL)
             self.font_color_button.config(state=tk.NORMAL)
 
         elif self.text_or_img.get() == 'img':
             self.text_entry.config(state=tk.DISABLED)
             self.text_label.config(state=tk.DISABLED)
-            # self.font_size_entry.config(state=tk.DISABLED)
             self.font_color_entry.config(state=tk.DISABLED)
             self.font_color_button.config(state=tk.DISABLED)
             self.img_name_entry.config(state=tk.NORMAL)
