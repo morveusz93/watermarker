@@ -1,2 +1,3 @@
 import os
-print(os.listdir(r'C:\Windows\fonts'))
+
+print(os.listdir(r"C:\Windows\fonts"))
