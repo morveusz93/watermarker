@@ -1,5 +1,6 @@
 import tkinter as tk
-from os import listdir
+from tkinter import font
+from PIL import ImageFont
 from tkinter import StringVar, colorchooser, filedialog
 
 
@@ -51,10 +52,15 @@ class WatermarkPickerFrame(tk.LabelFrame):
         self.text_entry.grid(column=1, row=5)
 
         # choose a font
-        all_fonts = [
-            font for font in listdir(r"C:\Windows\fonts") if font.endswith(".ttf")
-        ]
-        self.fonts = tk.StringVar(value=all_fonts)
+        all_fonts = sorted(list(font.families()))
+        avaiable_fonts = []
+        for f in all_fonts:
+            try: 
+                ImageFont.truetype(f, 1)
+                avaiable_fonts.append(f)
+            except OSError:
+                pass
+        self.fonts = tk.StringVar(value=avaiable_fonts)
         self.fonts_listbox = tk.Listbox(
             self, width=45, listvariable=self.fonts, exportselection=False
         )

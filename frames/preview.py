@@ -18,7 +18,7 @@ class PreviewFrame(tk.LabelFrame):
         # image
         self.preview_canvas = tk.Canvas(self, width=450)
         self.preview_canvas.grid(column=0, row=0, columnspan=2)
-        self.preview_img_path = join("images", "example.png")
+        self.preview_img_path = join("images", "example.jpg")
         self.open_perview_img()
 
         # position of watermark

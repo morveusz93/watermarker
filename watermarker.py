@@ -42,7 +42,7 @@ class Watermarker:
         self.app.mainloop()
 
     def load_watermark(self, *args):
-        print("nice")
+        # TODO
         return True
 
     def load_photos(self):
@@ -111,6 +111,7 @@ class Watermarker:
 
     def marking_with_text(self):
         font_family = self.app.watermark_frame.fonts_listbox.get(tk.ANCHOR)
+        print("font_family: ", font_family)
         font_color = self.app.watermark_frame.font_color.get()[1:-1].split(", ")
         for img in self.images:
             photo = Image.open(join(self.dir, img)).convert("RGBA")
@@ -135,6 +136,7 @@ class Watermarker:
                 ),
             )
             marked_img = Image.alpha_composite(photo, text_img).convert("RGB")
+            print("saved:", self.saving_dir)
             save_image(marked_img, self.saving_dir, img)
 
     def main(self, *args):
