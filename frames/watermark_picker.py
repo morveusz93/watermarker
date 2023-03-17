@@ -105,7 +105,6 @@ class WatermarkPickerFrame(tk.LabelFrame):
             self.photo_label.config(state=tk.NORMAL)
             self.img_button.config(state=tk.NORMAL)
 
-    # open window with selceting direcory, next insert it into entry
     def select_photo(self):
         self.img_path = filedialog.askopenfilename(
             initialdir="/",
