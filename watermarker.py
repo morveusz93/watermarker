@@ -68,7 +68,6 @@ class Watermarker:
             self.saving_dir = join(self.dir, "marked")
             self.images = [path.basename(img_path)]
 
-    # size of watermark
     def resize_watermark(self, image_width):
         wm_width_prop = self.app.preview_frame.width_prop.get()
         current_wm_width = int(image_width * wm_width_prop / 100)
@@ -86,6 +85,8 @@ class Watermarker:
                 photo.paste(current_wm, wm_pos)
 
             save_image(photo.convert("RGB"), self.saving_dir, img)
+            print("saved:", self.saving_dir)
+
 
     def get_position_of_wm(self, img, wm):
         img_width, img_height = img.size

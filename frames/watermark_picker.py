@@ -93,12 +93,14 @@ class WatermarkPickerFrame(tk.LabelFrame):
             self.text_label.config(state=tk.NORMAL)
             self.font_color_entry.config(state=tk.NORMAL)
             self.font_color_button.config(state=tk.NORMAL)
+            self.fonts_listbox.config(state=tk.NORMAL)
 
         elif self.text_or_img.get() == "img":
             self.text_entry.config(state=tk.DISABLED)
             self.text_label.config(state=tk.DISABLED)
             self.font_color_entry.config(state=tk.DISABLED)
             self.font_color_button.config(state=tk.DISABLED)
+            self.fonts_listbox.config(state=tk.DISABLED)
             self.img_name_entry.config(state=tk.NORMAL)
             self.photo_label.config(state=tk.NORMAL)
             self.img_button.config(state=tk.NORMAL)
