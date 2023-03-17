@@ -13,7 +13,7 @@ class MainFrame(tk.Frame):
         self.root.config(padx=30, pady=30)
         self.config(padx=30, pady=30)
         self.root.title("WaterMarker")
-        self.root.geometry("1100x700")
+        self.root.geometry("2400x1200")
 
         # all frames
         self.photos_frame = PhotosPickerFrame(self)
